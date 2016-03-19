@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIKitClosures
 
 //	MARK: Sign In View Controller Class
 
@@ -16,6 +17,11 @@ import UIKit
     This is a view controller that allows the user to sign in.
  */
 final class SignInViewController: UIViewController {
+    //	MARK: Properties - State
+    /// The email adress the user has entered.
+    private var emailAddress: String? { return emailTextField.text }
+    /// The password the user has entered.
+    private var password: String? { return passwordTextField.text }
     //	MARK: Properties - Subviews
     /// The text field in which the user should enter their email address.
     @IBOutlet private var emailTextField: UITextField!
@@ -30,5 +36,17 @@ final class SignInViewController: UIViewController {
      */
     @IBAction private func signInTapped(signInButton: UIButton) {
         
+    }
+    
+    //	MARK: View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        emailTextField.didEndEditingClosure = { textField in
+            print(self.emailAddress)
+        }
+        passwordTextField.didEndEditingClosure = { textField in
+            print(self.password)
+        }
     }
 }
